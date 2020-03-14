@@ -30,8 +30,8 @@ node{
            //Update the imagetag to the latest version
                    sh("sed -i.bak 's#gcr.io/${project}/${appName}:${imageVersion}#${imageTag}#' ./k8s/development/*.yaml")
                    //Create or update resources
-           sh("kubectl --namespace=${namespace} apply -f k8s/development/deployment.yaml")
-                   sh("kubectl --namespace=${namespace} apply -f k8s/development/service.yaml")
+           sh("kubectl --namespace=${namespace} apply -f deployment.yaml")
+                   sh("kubectl --namespace=${namespace} apply -f service.yaml")
            //Grab the external Ip address of the service
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
@@ -43,8 +43,8 @@ node{
            //Update the imagetag to the latest version
                    sh("sed -i.bak 's#gcr.io/${project}/${appName}:${imageVersion}#${imageTag}#' ./k8s/production/*.yaml")
            //Create or update resources
-                   sh("kubectl --namespace=${namespace} apply -f k8s/production/deployment.yaml")
-                   sh("kubectl --namespace=${namespace} apply -f k8s/production/service.yaml")
+                   sh("kubectl --namespace=${namespace} apply -f deployment.yaml")
+                   sh("kubectl --namespace=${namespace} apply -f service.yaml")
            //Grab the external Ip address of the service
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
@@ -52,8 +52,8 @@ node{
               default:
                    sh("kubectl get ns ${namespace} || kubectl create ns ${namespace}")
                    sh("sed -i.bak 's#gcr.io/${project}/${appName}:${imageVersion}#${imageTag}#' ./k8s/development/*.yaml")
-                   sh("kubectl --namespace=${namespace} apply -f k8s/development/deployment.yaml")
-                   sh("kubectl --namespace=${namespace} apply -f k8s/development/service.yaml")
+                   sh("kubectl --namespace=${namespace} apply -f deployment.yaml")
+                   sh("kubectl --namespace=${namespace} apply -f service.yaml")
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
   }
