@@ -21,7 +21,7 @@ node{
   }
   
   //Stage 3 : Deploy Application
-  stage('Deploy Application') {
+  /*stage('Deploy Application') {
        switch (namespace) {
               //Roll out to Dev Environment
               case "development":
@@ -56,5 +56,5 @@ node{
                    sh("kubectl --namespace=${namespace} apply -f service.yaml")
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
-  }
+  }*/
 }
