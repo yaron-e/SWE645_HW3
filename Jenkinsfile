@@ -13,7 +13,7 @@ pipeline {
   stages{
   //Stage 1 : Build the docker image.
   stage('Build image') {
-      sh("docker build -t ${imageTag} .")
+      docker("build -t ${imageTag} .")
   }
 
   //Stage 2 : Push the image to docker registry
