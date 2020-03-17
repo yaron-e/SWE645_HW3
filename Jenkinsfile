@@ -1,5 +1,4 @@
-print("HELLO")
-node{
+pipeline {
   //Define all variables
   def project = 'my-project'
   def appName = 'my-first-microservice'
