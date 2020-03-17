@@ -14,13 +14,13 @@ node {
   stage('Build image') {
       sh("docker build -t ${imageTag} .")
   }
-  sh("echo '[1]\n")
+  sh("echo [1]")
 
   //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
       sh("gcloud docker -- push ${imageTag}")
   }
-  sh("echo '[2]\n")
+  sh("echo [2]\n")
   //Stage 3 : Deploy Application
   stage('Deploy Application') {
        switch (namespace) {
