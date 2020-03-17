@@ -1,5 +1,5 @@
 
-node {
+pipeline {
   //Define all variables
   def project = 'my-project'
   def appName = 'my-first-microservice'
@@ -10,7 +10,7 @@ node {
   
   //Checkout Code from Git
   checkout scm
-  
+  stages{
   //Stage 1 : Build the docker image.
   stage('Build image') {
       sh("docker build -t ${imageTag} .")
@@ -56,5 +56,6 @@ node {
                    sh("kubectl --namespace=${namespace} apply -f service.yaml")
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
+  }
   }
 }
