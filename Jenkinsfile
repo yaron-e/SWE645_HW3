@@ -1,3 +1,4 @@
+print("HELLO")
 node{
   //Define all variables
   def project = 'my-project'
