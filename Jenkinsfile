@@ -1,5 +1,4 @@
-
-pipeline {
+node{
   //Define all variables
   def project = 'my-project'
   def appName = 'my-first-microservice'
@@ -10,16 +9,17 @@ pipeline {
   
   //Checkout Code from Git
   checkout scm
-  stages{
+  
   //Stage 1 : Build the docker image.
   stage('Build image') {
       sh("docker build -t ${imageTag} .")
   }
-
+  
   //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
       sh("gcloud docker -- push ${imageTag}")
   }
+  
   //Stage 3 : Deploy Application
   stage('Deploy Application') {
        switch (namespace) {
