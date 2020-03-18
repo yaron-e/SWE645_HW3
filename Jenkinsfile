@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build image') {
       steps {
-        sh('apt install docker')
+        sh('apt install docker.io')
       }
     }
   }
