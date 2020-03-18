@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build image') {
       steps {
-        sh('docker ps')
+        sh('apt install docker')
       }
     }
   }
