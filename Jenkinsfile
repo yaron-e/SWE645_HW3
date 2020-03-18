@@ -1,11 +1,11 @@
 pipeline {
   //Define all variables
-  /*def project = 'my-project'
+  def project = 'my-project'
   def appName = 'my-first-microservice'
   def serviceName = "${appName}-backend"  
   def imageVersion = 'development'
   def namespace = 'development'
-  def imageTag = "mywebapp"//"gcr.io/${project}/${appName}:${imageVersion}.${env.BUILD_NUMBER}"*/
+  def imageTag = "mywebapp"//"gcr.io/${project}/${appName}:${imageVersion}.${env.BUILD_NUMBER}"
   
   //Checkout Code from Git
   checkout scm
