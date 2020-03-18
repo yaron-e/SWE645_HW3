@@ -6,8 +6,9 @@ pipeline {
       steps {
      //   sh('apt-get update -y && apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y')
         sh('echo Hello')
-        def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
+        
       }
+      def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
     }
   }
 }
