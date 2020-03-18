@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build image') {
       steps {
-        sh('apt install docker.io')
+        sh('apt-get update && apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common')
       }
     }
   }
