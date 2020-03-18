@@ -1,7 +1,7 @@
 pipeline {
   //Stage 1 : Build the docker image.
   agent {
-      docker { image 'node:7-alpine' }
+      dockerfile true
   }
   stages {
     stage('Build image') {
