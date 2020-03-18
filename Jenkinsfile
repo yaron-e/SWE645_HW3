@@ -17,7 +17,7 @@ pipeline {
   stage('Build image') {
       sh("docker build -t ${imageTag} .")
   }
-  
+  /*
   //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
       sh("gcloud docker -- push ${imageTag}")
@@ -60,5 +60,5 @@ pipeline {
                    sh("echo http://`kubectl --namespace=${namespace} get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
                    break
   }
-}
+}*/
 }
