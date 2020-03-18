@@ -8,7 +8,8 @@ pipeline {
         sh('echo Hello')
         
       }
-      def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
     }
+   def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
+    
   }
 }
