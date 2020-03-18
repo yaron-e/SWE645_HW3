@@ -3,7 +3,9 @@ pipeline {
   agent {
       docker { image 'node:7-alpine' }
   }
-  stage('Build image') {
-      sh("docker build -t ${imageTag} .")
+  stages {
+    stage('Build image') {
+        sh("docker build -t ${imageTag} .")
+    }
   }
 }
