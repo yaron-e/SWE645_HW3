@@ -1,4 +1,4 @@
-node {
+/*pipeline {
   //Stage 1 : Build the docker image.
   agent { dockerfile true}
   stages {
@@ -12,4 +12,14 @@ node {
    def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
     
   }
+}
+*/
+node {
+    checkout scm
+
+    def customImage = docker.build("my-image:mywebapp}")
+
+    customImage.inside {
+        sh 'make test'
+    }
 }
