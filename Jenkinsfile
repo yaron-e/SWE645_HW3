@@ -15,8 +15,10 @@ pipeline {
    //def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
     //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
+    steps{
       sh("gcloud docker -- push samplewar")
-  }
+    }  
+    }
   }
   
   
