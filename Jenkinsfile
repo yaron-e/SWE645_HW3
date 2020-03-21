@@ -16,7 +16,7 @@ pipeline {
     //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
      steps {       
-            withEnv(['GCLOUD_PATH=/root/google-cloud-sdk/bin']) {
+            withEnv(['PATH=/root/google-cloud-sdk/bin']) {
                 sh("gcloud docker -- push samplewar")
             }
        /*
