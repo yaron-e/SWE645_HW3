@@ -15,10 +15,15 @@ pipeline {
    //def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
     //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
-     steps {
-            withEnv(['GCLOUD_PATH=/var/jenkins_home/google-cloud-sdk/bin']) {
+     steps {       
+            withEnv(['GCLOUD_PATH=/root/google-cloud-sdk/bin']) {
                 sh("gcloud docker -- push samplewar")
             }
+       /*
+        withEnv(['GCLOUD_PATH=/var/jenkins_home/google-cloud-sdk/bin']) {
+                sh("gcloud docker -- push samplewar")
+            }
+       */
     }
   }
   
