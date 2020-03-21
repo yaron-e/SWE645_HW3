@@ -11,7 +11,7 @@ pipeline {
         //sh('sudo apt-get install docker-ce docker-ce-cli containerd.io')
         sh("docker build -t samplewar .")
         sh('docker run -p 5000:5000 samplewar &')
-        sh('docker containers ls')
+        sh('docker container ls')
       }
     }
    //def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
