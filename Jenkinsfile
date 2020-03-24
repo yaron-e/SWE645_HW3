@@ -1,4 +1,45 @@
 pipeline {
+    agent any
+    environment {
+        PROJECT_ID = 'PROJECT-ID'
+        CLUSTER_NAME = 'CLUSTER-NAME'
+        LOCATION = 'CLUSTER-LOCATION'
+        CREDENTIALS_ID = 'gke'
+    }
+    stages {
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
+        stage("Build image") {
+            steps {
+                script {
+                    myapp = docker.build("DOCKER-HUB-USERNAME/hello:${env.BUILD_ID}")
+                }
+            }
+        }
+        stage("Push image") {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                            myapp.push("latest")
+                            myapp.push("${env.BUILD_ID}")
+                    }
+                }
+            }
+        }        
+        stage('Deploy to GKE') {
+            steps{
+                sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
+    }    
+}
+
+
+/*pipeline {
   //Stage 1 : Build the docker image.
   agent any
   stages {
@@ -21,14 +62,14 @@ pipeline {
             withEnv(['PATH=/root/google-cloud-sdk/bin']) {
                 sh("gcloud docker -- push samplewar")
             }
-       /*
-        withEnv(['GCLOUD_PATH=/var/jenkins_home/google-cloud-sdk/bin']) {
-                sh("gcloud docker -- push samplewar")
-            }
-       */
+       
+        //withEnv(['GCLOUD_PATH=/var/jenkins_home/google-cloud-sdk/bin']) {
+        //        sh("gcloud docker -- push samplewar")
+        //    }
+        //
     }
   }
   
   }
 }
-
+*/
