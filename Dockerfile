@@ -1,6 +1,6 @@
 FROM tomcat:8.0-alpine
-LABEL maintainer="deepak@softwareyoga.com"
 
+RUN jar -cvf swe645.war /Source/*
 ADD swe645.war /usr/local/tomcat/webapps/
 
 EXPOSE 5000
