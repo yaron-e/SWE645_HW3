@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("DOCKER-HUB-USERNAME/hello:${env.BUILD_ID}")
+                    myapp = docker.build("yaron-e/hello:${env.BUILD_ID}")
                 }
             }
         }
@@ -28,14 +28,14 @@ pipeline {
                     }
                 }
             }
-        }        
+        }
         stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
-    }    
+    }
 }
 
 /*pipeline {
@@ -57,18 +57,18 @@ pipeline {
    //def customImage = docker.build("my-image:mywebapp")//def customImage = docker.build("my-image:")
     //Stage 2 : Push the image to docker registry
   stage('Push image to registry') {
-     steps {       
+     steps {
             withEnv(['PATH=/root/google-cloud-sdk/bin']) {
                 sh("gcloud docker -- push samplewar")
             }
-       
+
           //withEnv(['GCLOUD_PATH=/var/jenkins_home/google-cloud-sdk/bin']) {
          //       sh("gcloud docker -- push samplewar")
         //    }
        //
     }
   }
-  
+
   }
 }*/
 
@@ -103,13 +103,12 @@ pipeline {
                     }
                 }
             }
-        }   */ /*    
+        }   */ /*
         stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
-    }    
+    }
 }*/
-
