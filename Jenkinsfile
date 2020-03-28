@@ -1,19 +1,42 @@
 pipeline {
-  agent any
-  
-  stages {
-    stage('Pull from GitHub') {
-      steps {
-        git 'https://github.com/yaron-e/swe645_hw2.git'
-        
-        sh 'jar -cvf swe645.war /Source/*'
-      }
+    agent any
+    environment {
+        PROJECT_ID = 'swe645'
+        CLUSTER_NAME = 'swe645'
+        LOCATION = 'us-east1-c'
+        CREDENTIALS_ID = 'gke'
+    }
+    stages {
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
+        stage("Build image") {
+            steps {
+                script {
+                    myapp = docker.build("DOCKER-HUB-USERNAME/hello:${env.BUILD_ID}")
+                }
+            }
+        }
+        stage("Push image") {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                            myapp.push("latest")
+                            myapp.push("${env.BUILD_ID}")
+                    }
+                }
+            }
+        }        
+        stage('Deploy to GKE') {
+            steps{
+                sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
     }    
-  }
-  
-  
 }
-
 
 /*pipeline {
   //Stage 1 : Build the docker image.
