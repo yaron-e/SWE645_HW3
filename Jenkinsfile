@@ -1,4 +1,21 @@
 pipeline {
+  agent any
+  
+  stages {
+    stage('Pull from GitHub') {
+      steps {
+        git 'https://github.com/yaron-e/swe645_hw2.git'
+        
+        sh 'jar -cvf swe645.war /Source/*'
+      }
+    }    
+  }
+  
+  
+}
+
+
+/*pipeline {
   //Stage 1 : Build the docker image.
   agent any
   stages {
@@ -30,7 +47,7 @@ pipeline {
   }
   
   }
-}
+}*/
 
 ////////
 /*pipeline {
