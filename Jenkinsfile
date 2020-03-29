@@ -8,7 +8,7 @@ pipeline {
           maven "Maven 3.6.3"
           }
     environment {
-        PROJECT_ID = 'swe645'
+        PROJECT_ID = '654482500446'
         CLUSTER_NAME = 'swe645'
         LOCATION = 'us-east1-c'
         CREDENTIALS_ID = 'gke'
