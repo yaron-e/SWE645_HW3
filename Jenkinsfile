@@ -27,6 +27,7 @@ pipeline {
                     sh 'ls'
                     sh 'mvn -B clean package'
                     sh 'ls target/'
+                    sh 'mv target/test1-0.0.1-SNAPSHOT.war swe645.war'
                     /*sh 'docker build -t swe645_2 .'*/myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
                 }
             }
