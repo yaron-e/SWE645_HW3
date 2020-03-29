@@ -3,7 +3,7 @@ pipeline {
             image 'maven:3.6.2-jdk-8'
             args '-v /root/.m2:/root/.m2'
         }
-    }
+    
     environment {
         PROJECT_ID = 'swe645'
         CLUSTER_NAME = 'swe645'
