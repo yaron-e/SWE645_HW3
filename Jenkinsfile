@@ -1,8 +1,8 @@
 pipeline {
-    agent  {docker {
+    agent  any/*{docker {
             image 'maven:3.6.2-jdk-8'
             args '-v /root/.m2:/root/.m2'
-        }}
+        }}*/
 
     environment {
         PROJECT_ID = 'swe645'
