@@ -23,7 +23,7 @@ pipeline {
                     sh 'ls'
                     sh 'mvn -B clean package'
                     sh 'ls'
-                    myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
+                    sh 'docker build -t swe645_2 .'//myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
                 }
             }
         }
