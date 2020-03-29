@@ -1,9 +1,12 @@
 pipeline {
-    agent  {docker {
+    agent  any/*{docker {
             image 'maven:3.6.2-jdk-8'
             args '-v /root/.m2:/root/.m2'
-        }}
-
+        }}*/
+        tools {
+          // Install the Maven version configured as "M3" and add it to the path.
+          maven "M3"
+          }
     environment {
         PROJECT_ID = 'swe645'
         CLUSTER_NAME = 'swe645'
@@ -19,6 +22,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
+
                     checkout scm
                     sh 'ls'
                     sh 'mvn -B clean package'
