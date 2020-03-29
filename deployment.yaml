@@ -1,38 +1,38 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-name: hello
+name: swe645_2
 labels:
-  app: hello
+  app: swe645_2
 spec:
 strategy:
   type: Recreate
 template:
   metadata:
     labels:
-      app: hello
-      tier: hello
+      app: swe645_2
+      tier: swe645_2
   spec:
     containers:
-    - name: hello
-      image: eyaron94/hello:latest
+    - name: swe645_2
+      image: eyaron94/swe645_2:latest
       imagePullPolicy: Always
       ports:
       - containerPort: 5000
-        name: hello
+        name: swe645_2
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-name: hello
+name: swe645_2
 labels:
-  app: hello
+  app: swe645_2
 spec:
 ports:
   - port: 5000
     targetPort: 5000
 selector:
-  app: hello
-  tier: hello
+  app: swe645_2
+  tier: swe645_2
 type: LoadBalancer
