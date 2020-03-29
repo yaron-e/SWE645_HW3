@@ -13,13 +13,16 @@ pipeline {
     stages {
         stage("Checkout code") {
             steps {
-                checkout scm
+
             }
         }
         stage("Build image") {
             steps {
                 script {
+                    checkout scm
+                    sh 'ls'
                     sh 'mvn -B clean package'
+                    sh 'ls'
                     myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
                 }
             }
