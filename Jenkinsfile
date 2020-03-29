@@ -11,7 +11,7 @@ pipeline {
         PROJECT_ID = 'swe645'
         CLUSTER_NAME = 'swe645'
         LOCATION = 'us-east1-c'
-        CREDENTIALS_ID = 'gke2'
+        CREDENTIALS_ID = 'gke'
     }
     stages {
         /*stage("Checkout code") {
