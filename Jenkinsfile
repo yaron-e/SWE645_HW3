@@ -11,11 +11,11 @@ pipeline {
         CREDENTIALS_ID = 'gke'
     }
     stages {
-        stage("Checkout code") {
+        /*stage("Checkout code") {
             steps {
 
             }
-        }
+        }*/
         stage("Build image") {
             steps {
                 script {
