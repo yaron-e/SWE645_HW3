@@ -45,8 +45,8 @@ pipeline {
         stage('Deploy to GKE') {
             steps{
 
-                //sh "sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
-                //step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                sh "sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
     }
