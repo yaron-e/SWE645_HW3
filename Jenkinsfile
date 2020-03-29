@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent  docker {
+            image 'maven:3.6.2-jdk-8'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
     environment {
         PROJECT_ID = 'swe645'
         CLUSTER_NAME = 'swe645'
@@ -15,6 +19,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
+                    sh 'mvn -B clean package'
                     myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
                 }
             }
