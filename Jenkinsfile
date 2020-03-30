@@ -12,7 +12,7 @@ pipeline {
         CLUSTER_NAME = 'swe645'
         LOCATION = 'us-east1-c'
         CREDENTIALS_ID = 'gke'
-    }   
+    }
     stages {
         /*stage("Checkout code") {
             steps {
@@ -46,7 +46,7 @@ pipeline {
             steps{
                 //sh 'ssh -itt "SWE-645.pem" bitnami@ec2-18-219-216-92.us-east-2.compute.amazonaws.com'
                 //sh 'ifconfig'
-                sh "sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
+                sh "sudo sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
