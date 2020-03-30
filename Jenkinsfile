@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
-                sh 'ssh -i "SWE-645.pem" bitnami@ec2-18-219-216-92.us-east-2.compute.amazonaws.com'
+                sh 'ssh -i -t -t "SWE-645.pem" bitnami@ec2-18-219-216-92.us-east-2.compute.amazonaws.com'
                 sh 'ifconfig'
                 //sh "sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
                 //step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
