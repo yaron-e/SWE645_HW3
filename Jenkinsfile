@@ -28,7 +28,7 @@ pipeline {
                     sh 'mvn -B clean package'
                     sh 'ls target/'
                     sh 'mv target/test1-0.0.1-SNAPSHOT.war swe645.war'
-                    /*sh 'docker build -t swe645_2 .'*/myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
+                    /*sh 'docker build -t swe645_3 .'*/myapp = docker.build("eyaron94/swe645_3:${env.BUILD_ID}")
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
             steps{
                 //sh 'ssh -itt "SWE-645.pem" bitnami@ec2-18-219-216-92.us-east-2.compute.amazonaws.com'
                 //sh 'ifconfig'
-                sh "sudo sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
+                sh "sudo sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
@@ -105,7 +105,7 @@ pipeline {
         /*stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("eyaron94/swe645_2:latest")
+                    myapp = docker.build("eyaron94/swe645_3:latest")
                 }
             }
         }
@@ -121,7 +121,7 @@ pipeline {
         }   */ /*
         stage('Deploy to GKE') {
             steps{
-                sh "sed -i 's/swe645_2:latest/swe645_2:${env.BUILD_ID}/g' deployment.yaml"
+                sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
