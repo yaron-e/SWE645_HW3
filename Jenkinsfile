@@ -35,7 +35,7 @@ pipeline {
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('', 'dockerhub') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                             myapp.push("latest")
                             myapp.push("${env.BUILD_ID}")
                     }
@@ -44,18 +44,8 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
-
-                //sh 'docker pull eyaron94/swe645_3'
-                //sh 'docker run -p 5000:8080 eyaron94/swe645_3'
-                //sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
-                //step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-                sh'''
-                    #!/bin/bash
-                    docker pull eyaron94/swe645_3:${env.BUILD_ID}
-                    sudo -s source /etc/environment
-                    kubectl --kubeconfig /home/edaniela2010/.kube/config set image deployment swe645 swe645-group=docker.io/swe645docker/swe645-group:$BUILD_NUMBER
-    				        //docker rmi -f eyaron94/swe645_3:${env.BUILD_ID}
-			           '''
+                sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
     }
