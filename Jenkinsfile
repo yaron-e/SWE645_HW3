@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
-                withKubeConfig([
+                /*withKubeConfig([
                   credentialsId: '7a1146c7-1791-4197-a8fd-f6a97abec862'
                   // , contextName: contextName
                 ]) {
@@ -54,7 +54,7 @@ pipeline {
                     sh 'kubectl apply -k .'
                     // wait for deployment to complete
                     sh "kubectl rollout status deployment/${projectName} --timeout=2m"
-                }
+                }*/
 
 
                 //sh 'docker pull eyaron94/swe645_3'
