@@ -63,7 +63,6 @@ pipeline {
                 //step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
                 sh'''
                     #!/bin/bash
-                    docker login
                     docker pull eyaron94/swe645_3:${env.BUILD_ID}
                     sudo -s source /etc/environment
                     kubectl --kubeconfig /home/edaniela2010/.kube/config set image deployment swe645 swe645-group=docker.io/swe645docker/swe645-group:$BUILD_NUMBER
