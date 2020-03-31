@@ -44,10 +44,31 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
+                withKubeConfig([
+                  credentialsId: '7a1146c7-1791-4197-a8fd-f6a97abec862'
+                  // , contextName: contextName
+                ]) {
+                    // switch context from default to target environment
+                    sh "kubectl config use-context ${contextName}"
+                    // deploy the resources (without pushing)
+                    sh 'kubectl apply -k .'
+                    // wait for deployment to complete
+                    sh "kubectl rollout status deployment/${projectName} --timeout=2m"
+                }
+
+
                 //sh 'docker pull eyaron94/swe645_3'
                 //sh 'docker run -p 5000:8080 eyaron94/swe645_3'
-                sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                //sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
+                //step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                sh'''
+                    #!/bin/bash
+                    docker login
+                    docker pull eyaron94/swe645_3:${env.BUILD_ID}
+                    sudo -s source /etc/environment
+                    kubectl --kubeconfig /home/edaniela2010/.kube/config set image deployment swe645 swe645-group=docker.io/swe645docker/swe645-group:$BUILD_NUMBER
+    				        //docker rmi -f eyaron94/swe645_3:${env.BUILD_ID}
+			           '''
             }
         }
     }
