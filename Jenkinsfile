@@ -40,7 +40,8 @@ pipeline {
                             myapp.push("${env.BUILD_ID}")
                     }*/
                     docker.withRegistry('','dockerhub'){
-                    myapp.push()
+                      myapp.push()
+                    }
                 }
             }
         }
