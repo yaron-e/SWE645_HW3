@@ -35,7 +35,7 @@ pipeline {
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                    docker.withRegistry('', 'dockerhub') {
                             myapp.push("latest")
                             myapp.push("${env.BUILD_ID}")
                     }
@@ -44,18 +44,6 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
-                /*withKubeConfig([
-                  credentialsId: '7a1146c7-1791-4197-a8fd-f6a97abec862'
-                  // , contextName: contextName
-                ]) {
-                    // switch context from default to target environment
-                    sh "kubectl config use-context ${contextName}"
-                    // deploy the resources (without pushing)
-                    sh 'kubectl apply -k .'
-                    // wait for deployment to complete
-                    sh "kubectl rollout status deployment/${projectName} --timeout=2m"
-                }*/
-
 
                 //sh 'docker pull eyaron94/swe645_3'
                 //sh 'docker run -p 5000:8080 eyaron94/swe645_3'
