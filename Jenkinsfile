@@ -51,8 +51,8 @@ pipeline {
                 sh'''
                     #!/bin/bash
                     docker pull eyaron94/swe645_3:${env.BUILD_ID}
-                    sudo -s source /etc/environment
-                    kubectl --kubeconfig /home/edaniela2010/.kube/config set image deployment swe645 swe645-group=docker.io/swe645docker/swe645-group:$BUILD_NUMBER
+                    //sudo -s source /etc/environment
+                    //kubectl --kubeconfig /home/edaniela2010/.kube/config set image deployment swe645 swe645-group=docker.io/swe645docker/swe645-group:$BUILD_NUMBER
     				        //docker rmi -f eyaron94/swe645_3:${env.BUILD_ID}
 			           '''
 
