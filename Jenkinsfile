@@ -28,7 +28,7 @@ pipeline {
                     sh 'mvn -B clean package'
                     sh 'ls target/'
                     sh 'mv target/test1-0.0.1-SNAPSHOT.war swe645.war'
-                    myapp = docker.build("eyaron94/swe645_3:${env.BUILD_ID}")
+                    myapp = docker.build("eyaron94/swe645_2:${env.BUILD_ID}")
                 }
             }
         }
@@ -46,10 +46,11 @@ pipeline {
             steps{
 		    //sh 'gcloud config set project swe645'
                 //sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'
-				sh 'kubectl config view'
-				sh "kubectl get deployments"
-				sh "kubectl set image deployment.yaml"//sh "kubectl set image deployment/survey-app swe645hw2=hy950921/swe645hw2:${env.BUILD_ID}"
-
+				//sh 'kubectl config view'
+				//sh "kubectl get deployments"
+				//sh "kubectl set image deployment.yaml"//sh "kubectl set image deployment/survey-app swe645hw2=hy950921/swe645hw2:${env.BUILD_ID}"
+				sh 'kubectl patch deployment swe645-2 -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"'
+		    
                /* sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             */}
