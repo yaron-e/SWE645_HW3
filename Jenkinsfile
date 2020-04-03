@@ -44,8 +44,8 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
-		    sh 'gcloud config set project swe645'
-                sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'
+		    //sh 'gcloud config set project swe645'
+                //sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'
 				sh 'kubectl config view'
 				sh "kubectl get deployments"
 				sh "kubectl set image deployment.yaml"//sh "kubectl set image deployment/survey-app swe645hw2=hy950921/swe645hw2:${env.BUILD_ID}"
