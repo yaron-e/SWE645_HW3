@@ -51,7 +51,8 @@ pipeline {
 		    sh 'gcloud config set project extreme-citadel-271521'	
 		    sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'	
 		    sh 'kubectl version'	
-		    sh 'kubectl patch deployments swe645-2 -p {spec:{"progressDeadlineSeconds":600}}'
+		    sh 'kubectl set image deployments/swe645-2 swe645-2=eyaron94/swe645_2:latest'
+		    //sh 'kubectl patch deployments swe645-2 -p {spec:{"progressDeadlineSeconds":600}}'
 		    
                /* sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
