@@ -13,6 +13,13 @@ pipeline {
         LOCATION = 'us-east1-c'
         CREDENTIALS_ID = 'gke'
     }
+	
+agent {
+        kubernetes {
+        defaultContainer 'jnlp'
+        yamlFile 'deployment.yaml'
+        }
+    }
     stages {
         /*stage("Checkout code") {
             steps {
