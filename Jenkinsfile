@@ -1,5 +1,5 @@
 pipeline {
-    agent  /*any*/{
+    agent  kubernetes/*any*/{
 	 docker {
             image 'maven:3.6.2-jdk-8'
             args '-v /root/.m2:/root/.m2'
