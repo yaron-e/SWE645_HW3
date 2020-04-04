@@ -1,5 +1,5 @@
 pipeline {
-    agent  kubernetes/*any*/{
+   /* agent  /*any*//*{
 	 docker {
             image 'maven:3.6.2-jdk-8'
             args '-v /root/.m2:/root/.m2'
@@ -8,7 +8,16 @@ pipeline {
         defaultContainer 'jnlp'
         yamlFile 'deployment.yaml'
    }
+    }*/
+	
+agent {
+        kubernetes {
+            defaultContainer 'jnlp'
+            yamlFile 'build.yaml'
+        }
     }
+	
+	
         tools {
           // Install the Maven version configured as "M3" and add it to the path.
           maven "Maven 3.6.3"
