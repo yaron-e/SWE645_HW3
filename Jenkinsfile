@@ -48,7 +48,8 @@ pipeline {
 				//sh 'kubectl config view'
 				//sh "kubectl get deployments"
 				//sh "kubectl set image deployment.yaml"//sh "kubectl set image deployment/survey-app swe645hw2=hy950921/swe645hw2:${env.BUILD_ID}"
-			sh 'kubectl version'	
+			sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'	
+		    sh 'kubectl version'	
 		    sh 'kubectl patch deployments/swe645-2 -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"'
 		    
                /* sh "sed -i 's/swe645_3:latest/swe645_3:${env.BUILD_ID}/g' deployment.yaml"
