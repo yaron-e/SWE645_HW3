@@ -1,8 +1,14 @@
 pipeline {
-    agent  any/*{docker {
+    agent  /*any*/{
+	 docker {
             image 'maven:3.6.2-jdk-8'
             args '-v /root/.m2:/root/.m2'
-        }}*/
+        }
+   kubernetes {
+        defaultContainer 'jnlp'
+        yamlFile 'deployment.yaml'
+   }
+    }
         tools {
           // Install the Maven version configured as "M3" and add it to the path.
           maven "Maven 3.6.3"
@@ -12,13 +18,6 @@ pipeline {
         CLUSTER_NAME = 'swe645'
         LOCATION = 'us-east1-c'
         CREDENTIALS_ID = 'gke'
-    }
-	
-agent {
-        kubernetes {
-        defaultContainer 'jnlp'
-        yamlFile 'deployment.yaml'
-        }
     }
     stages {
         /*stage("Checkout code") {
