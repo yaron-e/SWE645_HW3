@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Deploy to GKE') {
             steps{
-		    sh 'gcloud config set account edaniela2004@gmail.com'
+		    sh 'gcloud config set account edaniela2010@gmail.com'
 		    sh 'docker pull eyaron94/swe645_2:latest'
 		    //sh 'gcloud config set project swe645'
                 //sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'
