@@ -51,7 +51,7 @@ pipeline {
 				//sh "kubectl get deployments"
 				//sh "kubectl set image deployment.yaml"//sh "kubectl set image deployment/survey-app swe645hw2=hy950921/swe645hw2:${env.BUILD_ID}"
 		  //  sh 'gcloud config set project extreme-citadel-271521'	
-		//    sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'	
+		    sh 'gcloud container clusters get-credentials swe645 --zone us-east1-c'	
 		 //   sh 'kubectl version'	
 		    sh 'kubectl set image deployments/swe645-2 swe645-2=eyaron94/swe645_2:latest'
 		    //sh 'kubectl patch deployments swe645-2 -p {spec:{"progressDeadlineSeconds":600}}'
