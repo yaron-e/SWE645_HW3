@@ -24,6 +24,8 @@ pipeline {
         stage("Build backend") {
           steps {
               sh 'cd swe645-backend'
+	      sh 'ls'
+	      sh 'pwd'
               sh 'mvn -B clean package'
               sh 'ls'
               sh 'mv target/*-SNAPSHOT.war Backend.war'
