@@ -27,7 +27,7 @@ pipeline {
               sh 'mvn -B clean package'
               sh 'ls'
               sh 'mv target/*-SNAPSHOT.war Backend.war'
-              myapp = docker.build("eyaron94/swe645_backend:${env.BUILD_ID}")
+              //myapp = docker.build("eyaron94/swe645_backend:${env.BUILD_ID}")
           }
         }
         /*stage("Build frontend"){
