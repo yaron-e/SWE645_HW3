@@ -30,7 +30,7 @@ pipeline {
               myapp = docker.build("eyaron94/swe645_backend:${env.BUILD_ID}")
           }
         }
-        stage("Build frontend"){
+        /*stage("Build frontend"){
           steps{
             sh 'cd ../swe645-frontend'
             myapp2 = docker.build("eyaron94/swe645_frontend:${end.BUILD_ID}")
@@ -59,6 +59,6 @@ pipeline {
         sh 'kubectl set image deployments/swe645-frontend swe645-frontend=eyaron94/swe645_frontend:latest'
 
       }
-        }
+        }*/
     }
 }
