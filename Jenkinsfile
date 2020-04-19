@@ -16,6 +16,7 @@ pipeline {
         stage("Checkout code") {
             steps {
                 sh 'ls'
+		sh 'rm -rf swe645-frontend swe645-backend'
                 sh 'git clone https://github.com/eidelmand/swe645-frontend.git'
                 sh 'git clone https://github.com/eidelmand/swe645-backend.git'
                 sh 'ls'
